@@ -14,7 +14,7 @@ body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #073a63;
+	background-image: linear-gradient(to right, #063155, #0a5088 );
 }
 
 #logo{
@@ -49,7 +49,7 @@ body {
 
 /* Change the link color to #111 (black) on hover */
 .menuitem a:hover {
-	background-color: #063155;
+	background-color: #0d4370;
 }
 
 .active {
