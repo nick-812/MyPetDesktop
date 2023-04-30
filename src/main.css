@@ -6,6 +6,56 @@
 }
 
 body {
-	background-color: #f5f5f5;
-	padding: 1.5rem;
+	background-color: #fdfdfd;
+}
+
+#menubar {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #073a63;
+}
+
+#logo{
+	float: left;
+	background-color: #d2e1ee;
+	margin-right: 15px;
+}
+
+#logo a {
+	display: block;
+	color: #073a63;
+	text-align: center;
+	padding: 8px 16px;
+	text-decoration: none;
+	font-size: 29px;
+	font-weight: bold;
+}
+
+.menuitem{
+	float: left;
+	margin: 5px;
+}
+
+.menuitem a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 10px 16px;
+	text-decoration: none;
+	border-radius: 8px;
+}
+
+/* Change the link color to #111 (black) on hover */
+.menuitem a:hover {
+	background-color: #063155;
+}
+
+.active {
+	background-color: #0a5088;
+}
+
+a.active:hover {
+	background-color: #094475;
 }

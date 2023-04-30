@@ -20,7 +20,7 @@ function createWindow () {
 		return { success: true, filePath };
 	})
 
-	win.loadFile('src/index.html');
+	win.loadFile('src/psi.html');
 }
 
 ipcMain.on('notify', (_, message) => {
