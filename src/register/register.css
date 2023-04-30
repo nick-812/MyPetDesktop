@@ -27,11 +27,11 @@ body {
 	margin-top: 100px;
   	margin-left: auto;
   	margin-right: auto;
-	min-height: 500px;
+	min-height: 650px;
 }
 
 #naslov {
-	height: 30%;
+	height: 22%;
 	width: 100%;
 	padding-top: 10%;
 	text-align: center;
@@ -39,6 +39,14 @@ body {
 	font-size: 50px;
 	font-weight: bolder;
 	color:#063155;
+}
+
+#error {
+	width: 100%;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	color: rgb(141, 1, 1);
 }
 
 .input_label {
@@ -63,7 +71,7 @@ body {
 	outline-color: #063155;
 }
 
-#login {
+#register {
 	width: 24%;
 	height: 10%;
 	margin-top: 2%;
@@ -77,6 +85,31 @@ body {
 	background-color: #063155;
 }
 
-#login:hover {
+#register:hover {
 	background-color: #0d4370;
 }
+
+#prijava {
+	width: 100%;
+	margin-top: 6%;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	color: #063155;
+	display: block;
+	text-decoration:none;
+}
+
+@media (prefers-color-scheme: dark) {
+    #box { background-color: rgb(37, 37, 37); }
+	#naslov { color: white; }
+	#error  { color: white; }
+	.input_label {color: white; }
+	#prijava {color: white; }
+	.input_box {border: white; 
+		border-style: solid; 
+		border-radius: 10px; 
+		background-color: rgb(224, 224, 224);
+	}
+}
+
