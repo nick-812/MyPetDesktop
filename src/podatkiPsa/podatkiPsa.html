@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyPet</title>
+	<link rel="stylesheet" href="podatkiPsa.css" />
+</head>
+<body>
+	<ul id="menubar">
+		<li id="logo"><a href="../psi/psi.html">MyPet</a></li>
+		<li class="menuitem"><a class="active" href="../psi/psi.html">Moji Psi</a></li>
+		<li class="menuitem"><a href="../diagnoza/diagnoza.html">Diagnoza</a></li>
+		<li class="menuitem"><a href="../veterinar/veterinar.html">Veterinar</a></li>
+		<li class="menuitem"><a href="../trening/trening.html">Trening</a></li>
+		<li class="menuitem" style="float:right"><a href="../login/login.html">Odjava</a></li>
+	</ul>
+	<div id="main">
+
+		<div class="left_menu">
+			<button class="menu_button" id="back">Nazaj</button>
+			<button class="menu_button sub_button" id="edit">Uredi</button>
+			<button class="menu_button sub_button" id="delete">Izbriši</button>
+		</div>
+
+		<div id="content">
+			<p id="title">Podatki o psu</p>
+			<div class="container" id="ime_container">
+				<p class="label" id="ime_label">Ime</p>
+				<input class="value" id="ime_value" type="text" readonly>
+			</div>
+			<div class="container" id="ID_container">
+				<p class="label" id="ID_label">ID</p>
+				<input class="value" id="ID_value" type="text" readonly>
+			</div>
+			<div class="container" id="birthday_container">
+				<p class="label" id="birthday_label">Rojstni datum</p>
+				<input class="value" id="birthday_value" type="text" readonly>
+			</div>
+			<div class="container" id="userID_container">
+				<p class="label" id="userID_label">ID uporabnika</p>
+				<input class="value" id="userID_value" type="text" readonly>
+			</div>
+			<div class="container" id="animalID_container">
+				<p class="label" id="animalID_label">ID tipa živali</p>
+				<input class="value" id="animalID_value" type="text" readonly>
+			</div>
+		</div>
+
+	</div>
+	<script src="podatkiPsa.js"></script>
+</body>
+</html>

@@ -9,6 +9,12 @@ body {
 	background-color: #fdfdfd;
 }
 
+/* odstranitev stylinga linkov */
+a {
+	color: inherit; 
+	text-decoration: inherit; 
+}
+
 #menubar {
 	list-style-type: none;
 	margin: 0;
@@ -67,7 +73,7 @@ a.active:hover {
 
 #main {
 	width: 100%;
-	margin-top: 4.3%;
+	margin-top: 52px;
 	float: left;
 }
 

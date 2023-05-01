@@ -6,8 +6,9 @@ global.token = "jjjlk";
 
 function createWindow () {
 	const win = new BrowserWindow({
-		width: 800,
+		width: 1100,
 		height: 900,
+		minWidth: 1100,
 		title: "MyPet",
 		webPreferences: {
             nodeIntegration: true,
@@ -25,7 +26,7 @@ function createWindow () {
 		return { success: true, filePath };
 	})
 
-	win.loadFile('src/psi/psi.html');
+	win.loadFile('src/login/login.html');
 }
 
 ipcMain.on('notify', (_, message) => {

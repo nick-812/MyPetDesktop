@@ -71,14 +71,18 @@ a.active:hover {
 	background-color: #094475;
 }
 
+#main {
+	width: 100%;
+	margin-top: 52px;
+	float: left;
+}
+
 .left_menu {
 	width: 16%;
 	height: 1200px;
 	background-color: #eeeeee;
 	float: left;
 	position: fixed;
-	margin-top: 1%;
-	/*box-shadow: 0px 0px 2px 2px rgb(224, 224, 224);*/
 }
 
 .menu_button {
@@ -86,9 +90,9 @@ a.active:hover {
 	background-color: #0a5088;
 	margin-left: 10%;
 	margin-right: auto;
-	padding-top: 5%;
-	padding-bottom: 5%;
-	margin-top: 20%;
+	padding-top: 4.9%;
+	padding-bottom: 4.9%;
+	margin-top: 18.5%;
 	border-width: 0;
 	border-radius: 10px;
 	font-size: 20px;
@@ -100,115 +104,61 @@ a.active:hover {
 	background-color: #094779;
 }
 
-#fetch_dogs {
+.sub_button {
 	margin-top: 10%;
 }
 
-#dogs_list {
-	width: 80%;
-	margin-left: 18%;
-	margin-bottom: 2%;
-	margin-right: 2%;
+#content {
+	margin-left: 16%;
+}
+
+#title {
+	margin-left: 5%;
 	margin-top: 2%;
-	/*background-color: magenta;*/
+	font-weight: bold;
+	font-size: 40px;
+	color: #073a63;
+}
+
+.container {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 2%;
+	padding-left: 1%;
 	float: left;
-}
-
-#dogs_list_label {
-	margin-left: 2%;
-	margin-top: 2%;
-	font-size: 50px;
-	font-weight: bolder;
-	color:#073a63;
-}
-
-.dog {
-	width: 100%;
-	height: 100px;
-	background-color: rgb(255, 255, 255);
+	background-color: #073a63;
 	border-radius: 10px;
-	display: block;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	box-shadow: 0px 0px 4px 4px rgb(224, 224, 224);
 }
 
-.name_div {
-	width: 40%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	display: block;
+.label {
+	width: 20%;
 	float: left;
+	font-size: 25px;
+	color: white;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 2%;
+	border: #fdfdfd;
+	border-right-style: solid;
 }
 
-.dog_name {
-	font-size: 50px;
-	text-align: left;
-	padding-left: 50px;
-}
-
-.labels {
-	width: 25%;
-	display: block;
+.value {
+	width: 60%;
 	float: left;
+	height: 30px;
+	font-size: 25px;
+	border: solid #073a63;
+	border-radius: 5px;
+	color: white;
+	background-color: #073a63;
+	margin-top: 1%;
+	margin-left: 3%;
+	padding-left: 1%;
+	outline-color: transparent;
 }
 
-.birthday_label_div {
-	width: 100%;
-	padding-top: 13px;
-	padding-bottom: 13px;
-	display: block;
-	float: left;
-}
-
-.birthday_label {
-	font-size: 20px;
-	text-align: left;
-}
-
-.ID_label_div {
-	width: 100%;
-	padding-top: 13px;
-	padding-bottom: 13px;
-	display: block;
-	float: left;
-}
-
-.ID_label {
-	font-size: 20px;
-	text-align: left;
-}
-
-.values {
-	width: 35%;
-	display: block;
-	float: left;
-}
-
-.birthday_div {
-	width: 100%;
-	padding-top: 13px;
-	padding-bottom: 13px;
-	display: block;
-	float: left;
-}
-
-.dog_birthday {
-	font-size: 20px;
-	text-align: left;
-}
-
-.ID_div {
-	width: 100%;
-	padding-top: 13px;
-	padding-bottom: 13px;
-	display: block;
-	float: left;
-}
-
-.dog_ID {
-	font-size: 20px;
-	text-align: left;
+.value:focus {
+	outline: none;
 }
 
 @media (prefers-color-scheme: dark) {
