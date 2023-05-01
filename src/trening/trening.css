@@ -15,12 +15,17 @@ body {
 	padding: 0;
 	overflow: hidden;
 	background-image: linear-gradient(to right, #063155, #0a5088 );
+	position: fixed;
+	width: 100%;
+	z-index:2;
+	box-shadow: 0px 0px 3px 3px rgb(75, 75, 75);
 }
 
 #logo{
 	float: left;
 	background-color: #d2e1ee;
 	margin-right: 15px;
+	width: 16%;
 }
 
 #logo a {
@@ -58,6 +63,12 @@ body {
 
 a.active:hover {
 	background-color: #094475;
+}
+
+#main {
+	width: 100%;
+	margin-top: 4.3%;
+	float: left;
 }
 
 @media (prefers-color-scheme: dark) {
