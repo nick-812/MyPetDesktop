@@ -13,6 +13,9 @@ let counter = 0;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
+    //datepicker max na današnji dan
+    birthday.max = new Date().toISOString().split("T")[0];
+
     let params = (new URL(document.location)).searchParams;
     id = params.get("id");
 
@@ -52,35 +55,78 @@ edit_btn.addEventListener('click', async () => {
         userID.style.border = "solid #FFFFFF";
     }
     else{
-        edit_btn.innerHTML = 'Uredi'
+        if(petID.value != "" && userID.value != "" && birthday.value != "" && animalID.value != "" && ime.value != ""){
+            edit_btn.innerHTML = 'Uredi'
 
-	    ime.readOnly = true;
-        ime.style.border = "solid #073a63";
+            ime.readOnly = true;
+            ime.style.border = "solid #073a63";
 
-        petID.readOnly = true;
-        petID.style.border = "solid #073a63";
+            petID.readOnly = true;
+            petID.style.border = "solid #073a63";
 
-        animalID.readOnly = true;
-        animalID.style.border = "solid #073a63";
+            animalID.readOnly = true;
+            animalID.style.border = "solid #073a63";
 
-        birthday.readOnly = true;
-        birthday.style.border = "solid #073a63";
+            birthday.readOnly = true;
+            birthday.style.border = "solid #073a63";
 
-        userID.readOnly = true;
-        userID.style.border = "solid #073a63";
+            userID.readOnly = true;
+            userID.style.border = "solid #073a63";
 
-        const pets = JSON.parse(localStorage.getItem("oldPets"));
+            const pets = JSON.parse(localStorage.getItem("oldPets"));
 
-        const index = pets.findIndex(x => x._id === id);
-        pets[index]._id = petID.value;
-        pets[index].name = ime.value;
-        pets[index].animal_id = animalID.value;
-        pets[index].date_of_birth = birthday.value;
-        pets[index].user_id = userID.value;
+            const index = pets.findIndex(x => x._id === id);
+            pets[index]._id = petID.value;
+            pets[index].name = ime.value;
+            pets[index].animal_id = animalID.value;
+            pets[index].date_of_birth = birthday.value;
+            pets[index].user_id = userID.value;
 
-        id = petID.innerHTML;
+            id = petID.innerHTML;
 
-        localStorage.setItem("oldPets", JSON.stringify(pets));
+            localStorage.setItem("oldPets", JSON.stringify(pets));
+
+            //povrnemo container na prvotne barve
+            document.getElementById("ID_container").style.backgroundColor = "#073a63";
+            document.getElementById("userID_container").style.backgroundColor = "#073a63";
+            document.getElementById("birthday_container").style.backgroundColor = "#073a63";
+            document.getElementById("animalID_container").style.backgroundColor = "#073a63";
+            document.getElementById("ime_container").style.backgroundColor = "#073a63";
+        }
+        else{
+    
+            if(petID.value == ""){
+                document.getElementById("ID_container").style.backgroundColor = "#a81111";
+            }
+            else{
+                document.getElementById("ID_container").style.backgroundColor = "#073a63";
+            }
+    
+            if(userID.value == ""){
+                document.getElementById("userID_container").style.backgroundColor = "#a81111";
+            }else{
+                document.getElementById("userID_container").style.backgroundColor = "#073a63";
+            }
+    
+            if(birthday.value == ""){
+                document.getElementById("birthday_container").style.backgroundColor = "#a81111";
+            }else{
+                document.getElementById("birthday_container").style.backgroundColor = "#073a63";
+            }
+    
+            if(animalID.value == ""){
+                document.getElementById("animalID_container").style.backgroundColor = "#a81111";
+            }else{
+                document.getElementById("animalID_container").style.backgroundColor = "#073a63";
+            }
+    
+            if(ime.value == ""){
+                document.getElementById("ime_container").style.backgroundColor = "#a81111";
+            }else{
+                document.getElementById("ime_container").style.backgroundColor = "#073a63";
+            }
+    
+        }
 
     }
 })

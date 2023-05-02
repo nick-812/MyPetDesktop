@@ -147,10 +147,10 @@ a.active:hover {
 	float: left;
 	height: 30px;
 	font-size: 25px;
-	border: solid #073a63;
+	border: solid transparent;
 	border-radius: 5px;
 	color: white;
-	background-color: #073a63;
+	background-color: transparent;
 	margin-top: 1%;
 	margin-left: 3%;
 	padding-left: 1%;
@@ -159,6 +159,10 @@ a.active:hover {
 
 .value:focus {
 	outline: none;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }
 
 @media (prefers-color-scheme: dark) {

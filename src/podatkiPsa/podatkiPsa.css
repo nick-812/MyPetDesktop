@@ -161,6 +161,10 @@ a.active:hover {
 	outline: none;
 }
 
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 @media (prefers-color-scheme: dark) {
 	body {background-color: #232323;}
 }
