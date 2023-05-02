@@ -3,32 +3,33 @@ const { contextBridge, ipcRenderer, remote } = require('electron');
 const dexie = require('dexie');
 
 
-//database psov
+//database psov v dexiju
 const db = new dexie('localDB');
 db.version(1).stores({
 	pets: '_id, name, date_of_birth, animal_id, user_id', // Primary key and indexed props
 	newPets: 'name, _id, date_of_birth, animal_id, user_id',
 });
-localStorage.setItem("db", db);
 
 
-
+//contextbridge z imenom api
 contextBridge.exposeInMainWorld('api', {
 	title: "MyPet",
-	token: "",
 
+	//pošiljanje notificationa main.js
 	notificationApi: {
 		sendNotification(message) {
 		  ipcRenderer.send('notify', message);
 		}
 	},
 
+	//pošiljanje login data na strežnik
 	login: {
 		async sendLogin(data){
 
 			try {
 				const login = await axios.post('http://localhost:8083/login', data);
 				
+				//dekodiramo token in ga nastavimo kot default za axios
 				const token = login.data['token'];
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
@@ -40,6 +41,7 @@ contextBridge.exposeInMainWorld('api', {
 		}
 	},
 
+	//funkcija za pošiljanje registracje
 	register: {
 		async sendRegister(data){
 
@@ -53,9 +55,11 @@ contextBridge.exposeInMainWorld('api', {
 		}
 	},
 
+	//funkcija za komunikacijo z glavnim streažnikom MyPet
 	fetch: {
 		async getAllDogs(){
 
+			//nastavitev tokena kot default
 			const token = localStorage.getItem("token");
 			axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
@@ -65,6 +69,8 @@ contextBridge.exposeInMainWorld('api', {
 					id: token
 				}, 
 			});
+
+			//za vsak pridobljen pet ustvarimo objekt in ga shranimo v dexi
 			for (const pet of response.data) {
 				await db.pets.put({
 					_id: pet._id,
@@ -75,19 +81,12 @@ contextBridge.exposeInMainWorld('api', {
 				});
 			}
 
+			//pridobimo array psov iz dexija
 			const oldPets = await db.pets.toArray();
 
-			console.log(oldPets[0].name);
-
+			//shranimo json seznama psov
 			localStorage.setItem("oldPets", JSON.stringify(oldPets));
 
-			/*
-			db1 = localStorage.getItem("db");
-			const oldPets = await db1.pets.toArray();
-			console.log(oldPets[0].name);
-			*/
-	
-			console.log("Uploaded and refreshed")
 	
 		}
 	}

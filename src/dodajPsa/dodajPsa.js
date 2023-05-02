@@ -9,23 +9,30 @@ const birthday = document.getElementById("birthday_value");
 const petID = document.getElementById("petID_value");
 
 
+//ko se stran naloži
 document.addEventListener('DOMContentLoaded', async () => {
+
+    //omejitev datepickerja na današnji dan
     birthday.max = new Date().toISOString().split("T")[0];
 
-    console.log(Date.now());
 })
 
-
+//gumb za nazaj
 back_btn.addEventListener('click', async () => {
+    //link do prejšnje strani
 	window.location.href="../psi/psi.html";
 })
 
+//gumb za shranjevanje
 save_btn.addEventListener('click', async () => {
 
+    //preverimo če so vsa polja zapolnjena
     if(petID.value != "" && userID.value != "" && birthday.value != "" && animalID.value != "" && ime.value != ""){
 
+        //pridobitev seznama psov
         const pets = JSON.parse(localStorage.getItem("oldPets"));
 
+        //nov pes
         const pet = {
             _id : petID.value,
             user_id : userID.value,
@@ -33,16 +40,23 @@ save_btn.addEventListener('click', async () => {
             animal_id : animalID.value,
             name : ime.value
         };
+
+
+        //nalaganje psa na strežnik
+
         
-    
+        //dodajanje psa v seznam
         pets.push(pet);
-    
+        
+        //shranjevanje seznama v localstorage
         localStorage.setItem("oldPets", JSON.stringify(pets));
-    
+        
+        //vrnitev na prejšnjo stran
         window.location.href="../psi/psi.html";
     }
     else{
 
+        //če je pet ID prazen, se polje obarva rdeče
         if(petID.value == ""){
             document.getElementById("petID_container").style.backgroundColor = "#a81111";
         }
