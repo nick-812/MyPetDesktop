@@ -5,9 +5,10 @@ const dexie = require('dexie');
 
 //database psov v dexiju
 const db = new dexie('localDB');
-db.version(1).stores({
+db.version(2.1).stores({
 	pets: '_id, name, date_of_birth, animal_id, user_id', // Primary key and indexed props
 	newPets: 'name, _id, date_of_birth, animal_id, user_id',
+	appointments: 'id, date, dog, vet, data'
 });
 
 
@@ -88,6 +89,53 @@ contextBridge.exposeInMainWorld('api', {
 			localStorage.setItem("oldPets", JSON.stringify(oldPets));
 
 	
+		},
+
+		async getAllAppointments(){
+
+
+
+
+			//klic na server za appointmente
+
+
+
+			
+			//template appointment
+			const appointment = {
+				id: '4321',
+				date: "2023-09-02",
+				dog: "640895ba9f2c83d7353a6edd",
+				vet: "dr. Kovač",
+				data: "Pregled in rentgen"
+			}
+
+			//6x appointment
+			for(let i = 0; i < 6; i++){
+				appointment.id = i.toString();
+				await db.appointments.put(appointment);
+			}
+
+			const appointment2 = {
+				id: '1234',
+				date: "2020-09-02",
+				dog: "6401a9bea8c01bbb1e85a4d3",
+				vet: "dr. Polančič",
+				data: "Pregled in rentgen"
+			}
+
+			//6x appointment
+			for(let i = 0; i < 6; i++){
+				appointment2.id = (i+6).toString();
+				await db.appointments.put(appointment2);
+			}
+
+			//pridobimo array appointmentov iz dexija
+			const appointments = await db.appointments.toArray();
+
+			//shranimo json seznama appointmentov
+			localStorage.setItem("appointments", JSON.stringify(appointments));
+			
 		}
 	}
 })

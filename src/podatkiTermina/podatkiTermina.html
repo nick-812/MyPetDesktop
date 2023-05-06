@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyPet</title>
+	<link rel="stylesheet" href="podatkiTermina.css" />
+</head>
+<body>
+	<ul id="menubar">
+		<li id="logo"><a href="../psi/psi.html">MyPet</a></li>
+		<li class="menuitem"><a href="../psi/psi.html">Moji Psi</a></li>
+		<li class="menuitem"><a href="../diagnoza/diagnoza.html">Diagnoza</a></li>
+		<li class="menuitem"><a class="active" href="../veterinar/veterinar.html">Veterinar</a></li>
+		<li class="menuitem"><a href="../trening/trening.html">Trening</a></li>
+		<li class="menuitem" style="float:right"><a href="../login/login.html">Odjava</a></li>
+	</ul>
+	<div id="main">
+
+		<div class="left_menu">
+			<button class="menu_button" id="back">Nazaj</button>
+			<button class="menu_button sub_button" id="edit">Uredi</button>
+			<button class="menu_button sub_button" id="delete">Izbriši</button>
+		</div>
+
+		<div id="content">
+			<p id="title">Podatki o psu</p>
+			<div class="container" id="ime_container">
+				<p class="label" id="ime_label">Ime psa</p>
+				<input class="value" id="ime_value" type="text" readonly>
+			</div>
+			<div class="container" id="vet_container">
+				<p class="label" id="vet_label">Veterinar</p>
+				<input class="value" id="vet_value" type="text" readonly>
+			</div>
+			<div class="container" id="date_container">
+				<p class="label" id="date_label">Datum</p>
+				<input class="value" id="date_value" type="date" readonly>
+			</div>
+			<div class="container" id="opis_container">
+				<p class="label" id="opis_label">Opis</p>
+				<textarea class="value" id="opis_value" style="resize:none" readonly></textarea>
+			</div>
+		</div>
+
+	</div>
+	<script src="podatkiTermina.js"></script>
+</body>
+</html>

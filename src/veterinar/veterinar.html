@@ -16,8 +16,35 @@
 		<li class="menuitem"><a href="../trening/trening.html">Trening</a></li>
 		<li class="menuitem" style="float:right"><a href="../login/login.html">Odjava</a></li>
 	</ul>
-	<div id="main">
-		<h1 id="title">Veterinar</h1>
+	<br><br>
+
+	
+	<div class="left_menu">
+		<button class="menu_button" id="add">Dodaj</button>
+		<button class="menu_button" id="fetch">Posodobi</button>
 	</div>
+	
+
+	<div id="appointments_list">
+		<p id="appointments_list_label">Termini</p>
+		<div id = "prihodnji termini">
+		</div>
+		<div class="appointment" id="1234">
+			<div class="name_div"><p class="dog_name">Rex</p></div>
+			<div class="labels">
+				<div class="date_label_div"><p class="date_label">Rojstni datum</p></div>
+				<div class="vet_label_div"><p class="vet_label">ID</p></div>
+			</div>
+			<div class="values">
+				<div class="date_div"><p class="date_birthday">14/11/2019</p></div>
+				<div class="vet_div"><p class="vet">12342424</p></div>
+			</div>
+		</div>
+	</div>
+
+	<br/><br/>
+	<button id="notify">Notify</button>
+
+	<script src="veterinar.js"></script>
 </body>
 </html>

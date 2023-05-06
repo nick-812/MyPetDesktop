@@ -37,7 +37,7 @@ const naloziPse = () => {
 	const oldPets = JSON.parse(localStorage.getItem("oldPets"));
 
 	//izpraznimo seznam v html
-	list.innerHTML = "";
+	list.innerHTML = '<p id="dogs_list_label">Moji Psi</p>';
 
 	//funkcija za dodajanje posameznega psa
 	const dodajPet = (pet) => {
@@ -67,11 +67,11 @@ const naloziPse = () => {
 	}
 
 	//kličemo funkcijo ki bo ustvarila eventListenerje za vsakega psa posebej
-	dodajGumbePsom();
+	dodajGumbeAppointmentom();
 }
 
 //funkcija doda eventListenerje na pse
-const dodajGumbePsom = () => {
+const dodajGumbeAppointmentom = () => {
 
 	//pridobimo vse elemente s classom dog
 	dogs = document.querySelectorAll(".dog");

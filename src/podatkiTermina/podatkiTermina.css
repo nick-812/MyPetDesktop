@@ -1,0 +1,183 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	background-color: #fdfdfd;
+}
+
+/* odstranitev stylinga linkov */
+a {
+	color: inherit; 
+	text-decoration: inherit; 
+}
+
+#menubar {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-image: linear-gradient(to right, #063155, #0a5088 );
+	position: fixed;
+	width: 100%;
+	z-index:2;
+	box-shadow: 0px 0px 3px 3px rgb(75, 75, 75);
+}
+
+#logo{
+	float: left;
+	background-color: #d2e1ee;
+	margin-right: 15px;
+	width: 16%;
+}
+
+#logo a {
+	display: block;
+	color: #073a63;
+	text-align: center;
+	padding: 8px 16px;
+	text-decoration: none;
+	font-size: 29px;
+	font-weight: bold;
+}
+
+.menuitem{
+	float: left;
+	margin: 5px;
+}
+
+.menuitem a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 10px 16px;
+	text-decoration: none;
+	border-radius: 8px;
+}
+
+/* Change the link color to #111 (black) on hover */
+.menuitem a:hover {
+	background-color: #0d4370;
+}
+
+.active {
+	background-color: #0a5088;
+}
+
+a.active:hover {
+	background-color: #094475;
+}
+
+#main {
+	width: 100%;
+	margin-top: 52px;
+	float: left;
+}
+
+.left_menu {
+	width: 16%;
+	height: 1200px;
+	background-color: #eeeeee;
+	float: left;
+	position: fixed;
+}
+
+.menu_button {
+	width: 80%;
+	background-color: #0a5088;
+	margin-left: 10%;
+	margin-right: auto;
+	padding-top: 4.9%;
+	padding-bottom: 4.9%;
+	margin-top: 18.5%;
+	border-width: 0;
+	border-radius: 10px;
+	font-size: 20px;
+	color: white;
+	box-shadow: 0px 0px 1px 1px rgb(180, 180, 180);
+}
+
+.menu_button:hover {
+	background-color: #094779;
+}
+
+.sub_button {
+	margin-top: 10%;
+}
+
+#content {
+	margin-left: 16%;
+}
+
+#title {
+	margin-left: 5%;
+	margin-top: 2%;
+	font-weight: bold;
+	font-size: 40px;
+	color: #073a63;
+}
+
+.container {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 2%;
+	padding-left: 1%;
+	float: left;
+	background-color: #073a63;
+	border-radius: 10px;
+}
+
+.label {
+	width: 20%;
+	float: left;
+	font-size: 25px;
+	color: white;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 2%;
+	border: #fdfdfd;
+	border-right-style: solid;
+}
+
+.value {
+	width: 60%;
+	float: left;
+	height: 30px;
+	font-size: 25px;
+	border: solid #073a63;
+	border-radius: 5px;
+	color: white;
+	background-color: #073a63;
+	margin-top: 1%;
+	margin-left: 3%;
+	padding-left: 1%;
+	outline-color: transparent;
+}
+
+.value:focus {
+	outline: none;
+}
+
+#opis_container {
+	height: 200px;
+}
+
+#opis_label {
+	height: 200px;
+}
+
+#opis_value {
+	height: 180px;
+	vertical-align:top;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+	body {background-color: #232323;}
+}
