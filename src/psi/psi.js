@@ -11,11 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 	naloziPse();
 })
 
-//notification button ki pošlje notification
-notification_btn.addEventListener('click', async () => {
-	api.notificationApi.sendNotification('My custom notification! '+localStorage.getItem("token"));
-})
-
 //gumb za dodajanje psa, ki nas preusmeri na stran dodajPsa
 add_btn.addEventListener('click', async () => {
 	window.location.href="../dodajPsa/dodajPsa.html";
@@ -25,7 +20,7 @@ add_btn.addEventListener('click', async () => {
 refresh_btn.addEventListener('click', async () => {
 
 	//kličemo preload.js in posledično server za nove pse
-	await api.fetch.getAllDogs();
+	await api.dogs.getAllDogs();
 	
 	naloziPse();
 })
@@ -35,6 +30,9 @@ const naloziPse = () => {
 
 	//pridobitev seznama psov
 	const oldPets = JSON.parse(localStorage.getItem("oldPets"));
+
+	//pridobitev seznama novih psov
+	const newPets = JSON.parse(localStorage.getItem("newPets"));
 
 	//izpraznimo seznam v html
 	list.innerHTML = '<p id="dogs_list_label">Moji Psi</p>';
@@ -64,6 +62,13 @@ const naloziPse = () => {
 	//loop da gremo čez vse pse
 	for (const pet of oldPets) {
 		dodajPet(pet);
+	}
+
+	if(newPets.length){
+		//loop da gremo čez vse nove pse
+		for (const pet of newPets) {
+			dodajPet(pet);
+		}
 	}
 
 	//kličemo funkcijo ki bo ustvarila eventListenerje za vsakega psa posebej

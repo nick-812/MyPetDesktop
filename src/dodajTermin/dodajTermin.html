@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MyPet</title>
-	<link rel="stylesheet" href="podatkiTermina.css" />
+	<link rel="stylesheet" href="dodajTermin.css" />
 </head>
 <body>
 	<ul id="menubar">
@@ -20,33 +20,32 @@
 
 		<div class="left_menu">
 			<button class="menu_button" id="back">Nazaj</button>
-			<button class="menu_button sub_button" id="edit">Uredi</button>
-			<button class="menu_button sub_button" id="delete">Izbriši</button>
+			<button class="menu_button sub_button" id="save">Shrani</button>
 		</div>
 
 		<div id="content">
 			<p id="title">Podatki o terminu</p>
 			<div class="container" id="ime_container">
 				<p class="label" id="ime_label">Ime psa</p>
-				<select id="ime_value" class="value" disabled="true">
+				<select id="ime_value" class="value">
 					<option class="dog" value="832849489824">Rex</option>
 				</select> 
 			</div>
 			<div class="container" id="vet_container">
 				<p class="label" id="vet_label">Veterinar</p>
-				<input class="value" id="vet_value" type="text" readonly>
+				<input class="value" id="vet_value" type="text">
 			</div>
 			<div class="container" id="date_container">
 				<p class="label" id="date_label">Datum</p>
-				<input class="value" id="date_value" type="date" readonly>
+				<input class="value" id="date_value" type="date">
 			</div>
 			<div class="container" id="opis_container">
 				<p class="label" id="opis_label">Opis</p>
-				<textarea class="value" id="opis_value" style="resize:none" readonly></textarea>
+				<textarea class="value" id="opis_value" style="resize:none"></textarea>
 			</div>
 		</div>
 
 	</div>
-	<script src="podatkiTermina.js"></script>
+	<script src="dodajTermin.js"></script>
 </body>
 </html>

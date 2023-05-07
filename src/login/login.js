@@ -24,6 +24,10 @@ login_btn.addEventListener('click', async () => {
         const token = login.data['token'];
         localStorage.setItem("token", token);
 
+        //ponastavitev indexov
+        localStorage.setItem("newAppointmentIndex",0);
+        localStorage.setItem("newPetIndex",0);
+
         //preusmeritev na seznam psov
         window.location.href="../psi/psi.html";
     }

@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     id = params.get("id");
 
     //nalaganje seznama psov
-    const pets = JSON.parse(localStorage.getItem("oldPets"));
+    const oldpets = JSON.parse(localStorage.getItem("oldPets"));
+    const newPets = JSON.parse(localStorage.getItem("newPets"));
+    const pets = oldpets.concat(newPets);
 
     //poiščemo psa po id-ju
     const pes = pets.find(x => x._id === id);
@@ -102,13 +104,8 @@ edit_btn.addEventListener('click', async () => {
             pets[index].date_of_birth = birthday.value;
             pets[index].user_id = userID.value;
 
-
-            
-
-            //update pes
-
-
-
+            //updateamo dog na serverju
+            await api.dogs.updateDog(pets[index]);
 
             //ponovno nastavimo spremenljivko id
             id = petID.innerHTML;
@@ -158,9 +155,7 @@ edit_btn.addEventListener('click', async () => {
             }else{
                 document.getElementById("ime_container").style.backgroundColor = "#073a63";
             }
-    
         }
-
     }
 })
 
@@ -185,11 +180,8 @@ delete_btn.addEventListener('click', async () => {
         const index = pets.findIndex(x => x._id === id);
         pets.splice(index, 1);
 
-
-
-        //delete pes
-
-
+        //delete pes na serverju
+        await api.dogs.deleteDog(id)
 
         //shranimo seznam psov nazaj
         localStorage.setItem("oldPets", JSON.stringify(pets));

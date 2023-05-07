@@ -13,7 +13,9 @@ const outputFields = document.getElementById("outputFields");
 document.addEventListener('DOMContentLoaded', async () => {
 
     //pridobitev seznama psov
-    const dogs = JSON.parse(localStorage.getItem("oldPets"));
+    const oldpets = JSON.parse(localStorage.getItem("oldPets"));
+    const newPets = JSON.parse(localStorage.getItem("newPets"));
+    const dogs = oldpets.concat(newPets);
 
     //prazen selector
 	myDogs.innerHTML = "";
@@ -44,7 +46,14 @@ search.addEventListener('click', async () => {
     const dateOfBirth = pets.find(x => x._id === idPsa).date_of_birth;
 
 
+
+
+
     //ko bodo datumi psov v pravilni obliki se spodaj vnese dateOfBirth namesto placeholderja
+
+
+
+
 
 
     //pridobitev starosti
@@ -54,42 +63,31 @@ search.addEventListener('click', async () => {
     var year = age_dt.getUTCFullYear();  
     var starost = Math.abs(year - 1970);  
 
-    console.log(starost);
+
+
 
 
 
     //pridobitev teže psa
+    //const weight = pets.find(x => x._id === idPsa).weight;
     //dodajanje teže psa v spodnjo zahtevo
+
+
+
+
 
 
     //oblikovanje zahteve za strežnik
     const zahteva = {
         starost: starost,
         teza: 34,
+        //teza: weight,
         bolecineTaca: (document.querySelector('#bolecineTaca:checked')!=null),
         otezenaHoja: (document.querySelector('#otezenaHoja:checked')!=null)
     }
 
-
-
-
-    //klicanje strežnika za zahtevo -> await
-
-
-
-
     //odgovor zahteve
-    const pridobljena_vrednost = {
-        opcija1: "Steklina",
-        verjetnost1: 97.4,
-        opcija2: "Odrgnina",
-        verjetnost2: 26.8,
-        opcija3: "Rak",
-        verjetnost3: 2.9
-    }
-
-
-
+    const pridobljena_vrednost = await api.diagnose.getDiagnose(zahteva);
 
     //prikaz odseka z rezultati
     outputFields.style.display = "block";

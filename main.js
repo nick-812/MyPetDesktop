@@ -25,6 +25,7 @@ ipcMain.on('notify', (_, message) => {
 	new Notification({title: 'Notifiation', body: message}).show();
 })
 
+
 //zagon aplikacije
 app.whenReady().then(createWindow);
 

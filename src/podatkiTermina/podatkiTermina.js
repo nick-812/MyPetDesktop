@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     id = params.get("id");
 
     //nalaganje seznama appointmentov
-    const appointments = JSON.parse(localStorage.getItem("appointments"));
-
-    console.log(appointments);
+    //nalaganje seznama psov
+    const oldappointments = JSON.parse(localStorage.getItem("appointments"));
+    const newappointments = JSON.parse(localStorage.getItem("newAppointments"));
+    const appointments = oldappointments.concat(newappointments);
 
 
     //poiščemo appointment po id-ju
@@ -28,16 +29,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     console.log(appointment);
 
-    //poiščemo ime psa po id-ju
-    const dogs = JSON.parse(localStorage.getItem("oldPets"));
-    const index = dogs.findIndex(x => x._id === appointment.dog);
-	const name = dogs[index].name;
-
     //vnos podatkov o psu v vnosna polja
     vet.value = appointment.vet;
-    ime.value = name;
     date.value = appointment.date;
     opis.value = appointment.data;
+
+
+    //array psov
+    const dogs = JSON.parse(localStorage.getItem("oldPets"));
+
+    //prazen selector imen psov
+	ime.innerHTML = "";
+
+    for (const pes of dogs) {
+
+        //napolnjenje selectorja z imenom in idjem
+        const dog = document.createElement("option");
+        dog.className = "dog";
+        dog.value = pes._id;
+
+        dog.innerHTML = pes.name;
+
+        //dodamo psa v seznam
+        if (ime) ime.appendChild (dog);
+
+    }
+
+    //trenutni izbrani je pes vpisan v appointment z id-jem 
+    ime.value = appointment.dog;
+    
 });
 
 //gumb za preusmeritev nazaj
@@ -55,7 +75,7 @@ edit_btn.addEventListener('click', async () => {
         edit_btn.innerHTML = 'Shrani'
 
         //omogočimo urejanje in označimo polja z belo obrobo
-	    ime.readOnly = false;
+	    ime.disabled = false;
         ime.style.border = "solid #FFFFFF";
 
         vet.readOnly = false;
@@ -76,7 +96,7 @@ edit_btn.addEventListener('click', async () => {
             edit_btn.innerHTML = 'Uredi'
 
             //zaklenemo polja za urejanje in odstranimo obrobo
-            ime.readOnly = true;
+            ime.disabled = true;
             ime.style.border = "solid #073a63";
 
             opis.readOnly = true;
@@ -88,27 +108,21 @@ edit_btn.addEventListener('click', async () => {
             vet.readOnly = true;
             vet.style.border = "solid #073a63";
 
-            //pridobimo seznam psov
+            //pridobimo seznam appointmentov
             const appointments = JSON.parse(localStorage.getItem("appointments"));
 
-            //poiščemo index trenutnega psa
-            const index = appointments.findIndex(x => x._id === id);
+            //poiščemo index trenutnega appointmenta
+            const index = appointments.findIndex(x => x.id === id);
+
 
             //popravimo vrednosti appointmenta
             appointments[index].vet = vet.value;
             appointments[index].date = date.value;
-            appointments[index].data = data.value;
-
-
+            appointments[index].data = opis.value;
             appointments[index].dog = ime.value;
 
-            
-
             //update appointment
-
-
-
-
+            await api.appointments.updateAppointment(appointments);
 
             //shranimo seznam psov nazaj v localstorage
             localStorage.setItem("appointments", JSON.stringify(appointments));
@@ -124,20 +138,20 @@ edit_btn.addEventListener('click', async () => {
         else{
             
             //če je petID prazno ga obarvamo rdeče
-            if(petID.value == ""){
+            if(vet.value == ""){
                 document.getElementById("vet_container").style.backgroundColor = "#a81111";
             }
             else{
                 document.getElementById("vet_container").style.backgroundColor = "#073a63";
             }
     
-            if(userID.value == ""){
+            if(opis.value == ""){
                 document.getElementById("opis_container").style.backgroundColor = "#a81111";
             }else{
                 document.getElementById("opis_container").style.backgroundColor = "#073a63";
             }
     
-            if(birthday.value == ""){
+            if(date.value == ""){
                 document.getElementById("date_container").style.backgroundColor = "#a81111";
             }else{
                 document.getElementById("date_container").style.backgroundColor = "#073a63";
@@ -172,14 +186,11 @@ delete_btn.addEventListener('click', async () => {
         const appointments = JSON.parse(localStorage.getItem("appointments"));
 
         //poiščemo index in izbrišemo appointment
-        const index = appointments.findIndex(x => x._id === id);
+        const index = appointments.findIndex(x => x.id === id);
         appointments.splice(index, 1);
 
-
-
-        //delete appointment
-
-
+        //delete appointment na serverju
+        await api.appointments.deleteAppointment(id);
 
         //shranimo seznam appointmentov nazaj
         localStorage.setItem("appointments", JSON.stringify(appointments));

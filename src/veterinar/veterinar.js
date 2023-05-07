@@ -11,30 +11,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 	naloziAppointmente();
 })
 
-//notification button ki pošlje notification
-notification_btn.addEventListener('click', async () => {
-	api.notificationApi.sendNotification('My custom notification! '+localStorage.getItem("token"));
-})
-
 //gumb za dodajanje psa, ki nas preusmeri na stran dodajPsa
 add_btn.addEventListener('click', async () => {
-	window.location.href="../dodajPsa/dodajPsa.html";
+	window.location.href="../dodajTermin/dodajTermin.html";
 })
 
 //gumb za refresh
 refresh_btn.addEventListener('click', async () => {
 
 	//kličemo preload.js in posledično server za nove pse
-	await api.fetch.getAllAppointments();
+	await api.appointments.getAllAppointments();
 	
 	naloziAppointmente();
 })
 
-//funkcija za nalaganje psov v seznam
+//funkcija za nalaganje appointments v seznam
 const naloziAppointmente = () => {
 
-	//pridobitev seznama psov
+	//pridobitev seznama appointments
 	var termini = JSON.parse(localStorage.getItem("appointments"));
+
+	//pridobitev seznama new appointments
+	var noviTermini = JSON.parse(localStorage.getItem("newAppointments"));
 
 	termini.sort(function(a, b) {
 		var keyA = new Date(a.date);
@@ -51,7 +49,9 @@ const naloziAppointmente = () => {
 	const prihodnjiTermini = document.getElementById('prihodnjiTermini');
 	const pretekliTermini = document.getElementById('pretekliTermini');
 
-	const dogs = JSON.parse(localStorage.getItem("oldPets"));
+	const oldpets = JSON.parse(localStorage.getItem("oldPets"));
+    const newPets = JSON.parse(localStorage.getItem("newPets"));
+    const dogs = oldpets.concat(newPets);
 
 	//funkcija za dodajanje posameznega psa
 	const dodajAppointment = (appointment) => {
@@ -85,19 +85,28 @@ const naloziAppointmente = () => {
 		}
 	}
 
-	//loop da gremo čez vse pse
-	for (const appointment of termini) {
-		dodajAppointment(appointment);
+	if(termini!=null && termini.length){
+		//loop da gremo čez vse termine
+		for (const appointment of termini) {
+			dodajAppointment(appointment);
+		}
+	}
+
+	if(noviTermini!=null && noviTermini.length){
+		//loop da gremo čez vse termine
+		for (const appointment of noviTermini) {
+			dodajAppointment(appointment);
+		}
 	}
 
 	//kličemo funkcijo ki bo ustvarila eventListenerje za vsakega psa posebej
 	dodajGumbeAppointmentom();
 }
 
-//funkcija doda eventListenerje na pse
+//funkcija doda eventListenerje na termine
 const dodajGumbeAppointmentom = () => {
 
-	//pridobimo vse elemente s classom dog
+	//pridobimo vse elemente s classom appointment
 	const appointments = document.querySelectorAll(".appointment");
 
 	//za vsak element dodamo listener

@@ -17,7 +17,38 @@
 		<li class="menuitem" style="float:right"><a href="../login/login.html">Odjava</a></li>
 	</ul>
 	<div id="main">
-		<h1 id="title">Trening</h1>
+
+		<p id="title">Trening</p>
+		<div id="inputFields">
+			<div id="myDogsDiv">
+				<p id="myDogsLabel">Pes</p>
+				<select id="myDogs">
+					<option class="dog" value="832849489824">Rex</option>
+				</select>
+				
+				<p id="trainingLabel">Tip treninga</p>
+				<select id="trainingType">
+					<!-- https://petkeen.com/types-of-specialized-dog-training/ -->
+					<option class="training" value="agility">Agilnost</option>
+					<option class="training" value="obedience">Ubogljivost</option>
+					<option class="training" value="behavioral">Sprememba obnašanja</option>
+					<option class="training" value="tracking">Iskanje</option>
+					<option class="training" value="protection">Varnost</option>
+					<option class="training" value="retrieving">Prinašanje</option>
+				</select>
+
+				<button id="search">Izpiši</button>
+			</div>
+			<div id="rezultatDiv">
+				<p id="rezultatTitle">Načrt</p>
+				<div class="outputDiv">
+					<p class="output_value" id="output_value">Class WebSwapCGLLayer is implemented in both /System/Library/ Frameworks /WebKit.framework/Ver sions/A /Frameworks/We bCore.framework/V ersio ns/A/Frameworks /libANGLE-sh ared.dylib (0x228eaafe0) and /Users/n ik/Downloads/Studi j/MAG1/ST/ST_projekt /node_modules/elect ron/dist/Electron.app/Co ntents/Frameworks/Electro n Framework.frame work/Versions/A /Libraries/libGLES v2.dylib (0x1130c1 d08). One of the two will be used. Which one is undefined.</p>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
+	<script src="trening.js"></script>
 </body>
 </html>

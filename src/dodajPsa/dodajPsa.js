@@ -41,15 +41,8 @@ save_btn.addEventListener('click', async () => {
             name : ime.value
         };
 
-
-        //nalaganje psa na strežnik
-
-        
-        //dodajanje psa v seznam
-        pets.push(pet);
-        
-        //shranjevanje seznama v localstorage
-        localStorage.setItem("oldPets", JSON.stringify(pets));
+        //nalaganje psa na strežnik oz. v newPets
+        await api.dogs.pushDog(pet);
         
         //vrnitev na prejšnjo stran
         window.location.href="../psi/psi.html";
