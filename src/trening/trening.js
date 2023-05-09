@@ -51,6 +51,7 @@ search.addEventListener('click', async () => {
 
 
     //pridobitev starosti
+    //var datumRojstva = new Date(dateOfBirth);
     var datumRojstva = new Date('2014-04-03');
     var month_diff = Date.now() - datumRojstva.getTime();  
     var age_dt = new Date(month_diff);   

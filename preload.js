@@ -106,7 +106,16 @@ contextBridge.exposeInMainWorld('api', {
 		async sendLogin(data){
 
 			try {
+
+
+
+
+
 				const login = await axios.post('http://localhost:8083/login', data);
+
+
+
+
 				
 				//dekodiramo token in ga nastavimo kot default za axios
 				const token = login.data['token'];
@@ -125,7 +134,16 @@ contextBridge.exposeInMainWorld('api', {
 		async sendRegister(data){
 
 			try {
+
+
+
+
 				const register = await axios.post('http://localhost:8083/register', data);
+
+
+
+
+				
 				return register;
 			} catch (error) {
 				console.log(error.response); // this is the main part. Use the response property from the error object
