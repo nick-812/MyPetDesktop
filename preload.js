@@ -3,6 +3,11 @@ const { contextBridge, ipcRenderer, remote } = require('electron');
 const dexie = require('dexie');
 
 
+
+//dodaj nove atribute
+
+
+
 //database psov v dexiju
 const db = new dexie('localDB');
 db.version(3).stores({
@@ -143,7 +148,7 @@ contextBridge.exposeInMainWorld('api', {
 
 
 
-				
+
 				return register;
 			} catch (error) {
 				console.log(error.response); // this is the main part. Use the response property from the error object
@@ -164,6 +169,8 @@ contextBridge.exposeInMainWorld('api', {
 				const token = localStorage.getItem("token");
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
+
+				//Dodaj id uporabnika za getanje samo njegovih petov
 				
 				//fetchanje novih petov iz strežnika
 				const response = await axios.get('http://localhost:3004/api/getAllPets', {
@@ -172,6 +179,8 @@ contextBridge.exposeInMainWorld('api', {
 					}, 
 				});
 				
+
+
 
 				//za vsak pridobljen pet ustvarimo objekt in ga shranimo v dexi
 				for (const pet of response.data) {
@@ -183,6 +192,9 @@ contextBridge.exposeInMainWorld('api', {
 						user_id: pet.user_id
 					});
 				}
+
+
+				
 
 				//pridobimo array psov iz dexija
 				const oldPets = await db.pets.toArray();
