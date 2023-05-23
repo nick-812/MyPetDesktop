@@ -52,7 +52,7 @@ search.addEventListener('click', async () => {
 
     //pridobitev starosti
     //var datumRojstva = new Date(dateOfBirth);
-    var datumRojstva = new Date('2014-04-03');
+    var datumRojstva = dateOfBirth;
     var month_diff = Date.now() - datumRojstva.getTime();  
     var age_dt = new Date(month_diff);   
     var year = age_dt.getUTCFullYear();  
@@ -65,7 +65,7 @@ search.addEventListener('click', async () => {
 
 
     //pridobitev teže psa
-    //const weight = pets.find(x => x._id === idPsa).weight;
+    const weight = pets.find(x => x._id === idPsa).weight;
     //dodajanje teže psa v spodnjo zahtevo
 
 
@@ -77,7 +77,7 @@ search.addEventListener('click', async () => {
     const zahteva = {
         starost: starost,
         teza: 34,
-        //teza: weight,
+        teza: weight,
         tip: tipTreninga.value
     };
 

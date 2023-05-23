@@ -61,6 +61,7 @@ save_btn.addEventListener('click', async () => {
 
         //poiščemo index trenutnega appointmenta
         const appointment = {
+            _id : await api.dogs.generateUUID(),
             vet: vet.value,
             date: date.value,
             data: opis.value,

@@ -1,6 +1,8 @@
 const axios = require('axios');
 const { contextBridge, ipcRenderer, remote } = require('electron');
 const dexie = require('dexie');
+const { uuid } = require('uuidv4');
+const ObjectId = require('mongo-objectid');
 
 
 
@@ -10,9 +12,9 @@ const dexie = require('dexie');
 
 //database psov v dexiju
 const db = new dexie('localDB');
-db.version(3).stores({
-	pets: '_id, name, date_of_birth, animal_id, user_id', // Primary key and indexed props
-	newPets: '_id, name, date_of_birth, animal_id, user_id',
+db.version(4).stores({
+	pets: '_id, name, date_of_birth, user_id, weight', // Primary key and indexed props
+	newPets: '_id, name, date_of_birth, user_id, weight',
 	appointments: 'id, date, dog, vet, data',
 	newAppointments: 'id, date, dog, vet, data'
 });
@@ -116,7 +118,7 @@ contextBridge.exposeInMainWorld('api', {
 
 
 
-				const login = await axios.post('http://localhost:8083/login', data);
+				const login = await axios.post('http://localhost:3004/user/login', data);
 
 
 
@@ -143,7 +145,7 @@ contextBridge.exposeInMainWorld('api', {
 
 
 
-				const register = await axios.post('http://localhost:8083/register', data);
+				const register = await axios.post('http://localhost:3004/user/register', data);
 
 
 
@@ -158,12 +160,19 @@ contextBridge.exposeInMainWorld('api', {
 	},
 
 	dogs: {
+		async generateUUID() {
+			
+			return new ObjectId().hex;
+		},
 
 		async getAllDogs(){
 
 			if(navigator.onLine){
+				console.log("Je online, pridobivam pse.")
+				//tukaj db oldpets ne more biti, ker ni v db
+				//db.oldPets.clear();
 
-				db.oldPets.clear();
+				db.pets.clear();
 
 				//nastavitev tokena kot default
 				const token = localStorage.getItem("token");
@@ -171,13 +180,15 @@ contextBridge.exposeInMainWorld('api', {
 
 
 				//Dodaj id uporabnika za getanje samo njegovih petov
-				
+				const userId = localStorage.getItem("user_id");
+				console.log("Pridobivanje psov za uporabnika: " + userId)
 				//fetchanje novih petov iz strežnika
-				const response = await axios.get('http://localhost:3004/api/getAllPets', {
+				const response = await axios.get(`http://localhost:3004/user/getPets?user_id=${userId}`, {
 					params: {
-						id: token
+						user_id: userId
 					}, 
 				});
+				console.log("Response psov:" + response.data)
 				
 
 
@@ -188,7 +199,7 @@ contextBridge.exposeInMainWorld('api', {
 						_id: pet._id,
 						name: pet.name,
 						date_of_birth: pet.date_of_birth,
-						animal_id: pet.animal_id,
+						weight: pet.weight,
 						user_id: pet.user_id
 					});
 				}
@@ -203,6 +214,7 @@ contextBridge.exposeInMainWorld('api', {
 				localStorage.setItem("oldPets", JSON.stringify(oldPets));
 
 			}
+			
 		},
 
 		async pushDog(dog){
@@ -216,17 +228,24 @@ contextBridge.exposeInMainWorld('api', {
 
 
 
+				axios.post()
+				const data = {
+					"id" : dog._id,
+					"name": dog.name,
+					"date": dog.date_of_birth,
+					"user_id": dog.user_id,
+					"weight": dog.weight
+				}
+				//#push dog na server in return id (ni treba več, je ze nastavljen)
 
+				await axios.post('http://localhost:3004/user/createPet', data);
 
-				//push dog na server in return id
+				//# NASTAVI NOV ID !!!!!!!! (ni treba več, je ze nastavljen)
+				//const id = String(Math.floor(Math.random()*100000));
 
-
-
-				// NASTAVI NOV ID !!!!!!!!
-				const id = String(Math.floor(Math.random()*100000));
-
-				dog._id = id;
+				//dog._id = id;
 				db.pets.add(dog);
+				console.log("Dodali psa v local db: " + JSON.stringify(dog))
 
 				//pridobimo array psov iz dexija
 				const oldPets = await db.pets.toArray();
@@ -235,7 +254,7 @@ contextBridge.exposeInMainWorld('api', {
 				localStorage.setItem("oldPets", JSON.stringify(oldPets));
 			}
 			else{
-
+				//# Tu se pogleda ce je treba zacasen id, glede na to da se tu ze generira ID
 				//nastavimo začasen id 
 				let id = localStorage.getItem('newPetIndex');
 				dog._id = id;
@@ -261,11 +280,16 @@ contextBridge.exposeInMainWorld('api', {
 
 				//nastavitev tokena kot default
 				const token = localStorage.getItem("token");
+	
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
+				data = {
+					"name" : dog.name,
+					"date": dog.date_of_birth,
+					"weight": dog.weight
+				}
 
-
-
+				axios.put(`http://localhost:3004/user/updateAnimalAll?id=${dog._id}`, data)
 
 				// server update dog
 
@@ -286,10 +310,13 @@ contextBridge.exposeInMainWorld('api', {
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
 
-
-
+			   
 
 				// server delete dog po id-ju
+
+				const response = await axios.delete(`http://localhost:3004/user/deletePet?id=${id}`, {
+
+				});
 
 
 
@@ -325,6 +352,20 @@ contextBridge.exposeInMainWorld('api', {
 					data: "Pregled in rentgen"
 				}
 				*/
+					
+				const response = await axios.get(`http://localhost:3004/user/getAppointment?user_id=${localStorage.getItem("user_id")}`);
+
+				//# tu dodal da da v dexi bazo
+					//za vsak pridobljen pet ustvarimo objekt in ga shranimo v dexi
+					for (const appointment of response.data) {
+						await db.appointments.put({
+							id: appointment._id,
+							date: appointment.date,
+							dog: appointment.dog,
+							vet: appointment.vet, 
+							data: appointment.data
+						});
+					}
 
 				//pridobimo array appointmentov iz dexija
 				const appointments = await db.appointments.toArray();
@@ -344,19 +385,26 @@ contextBridge.exposeInMainWorld('api', {
 				const token = localStorage.getItem("token");
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
+				const data = {
+					"date": appointment.date,
+					"dog": appointment.dog,
+					"vet": appointment.vet,
+					"data": appointment.data
+				}
 
-
+                axios.post("http://localhost:3004/user/createAppointment", data)
 
 
 				//push appointment na server in return id
+				//#ni treba idja
 
 
 
 
 
-				const id = String(Math.floor(Math.random()*100000));
+				//const id = String(Math.floor(Math.random()*100000));
 
-				appointment.id = id;
+				//appointment.id = id;
 				db.appointments.add(appointment);
 
 				//pridobimo array appointmentov iz dexija

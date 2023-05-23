@@ -27,19 +27,21 @@ back_btn.addEventListener('click', async () => {
 save_btn.addEventListener('click', async () => {
 
     //preverimo če so vsa polja zapolnjena
-    if(petID.value != "" && userID.value != "" && birthday.value != "" && animalID.value != "" && ime.value != ""){
+    if(userID.value != "" && birthday.value != "" && ime.value != ""){
 
         //pridobitev seznama psov
         const pets = JSON.parse(localStorage.getItem("oldPets"));
 
         //nov pes
         const pet = {
-            _id : petID.value,
-            user_id : userID.value,
+            _id : await api.dogs.generateUUID(),
+            name : ime.value,
+            user_id : localStorage.getItem("user_id"),
             date_of_birth : birthday.value,
-            animal_id : animalID.value,
-            name : ime.value
+            weight : userID.value,
+            
         };
+        console.log("Novi pet: " + JSON.stringify(pet))
 
         //nalaganje psa na strežnik oz. v newPets
         await api.dogs.pushDog(pet);
@@ -50,12 +52,12 @@ save_btn.addEventListener('click', async () => {
     else{
 
         //če je pet ID prazen, se polje obarva rdeče
-        if(petID.value == ""){
+       /* if(petID.value == ""){
             document.getElementById("petID_container").style.backgroundColor = "#a81111";
         }
         else{
             document.getElementById("petID_container").style.backgroundColor = "#073a63";
-        }
+        }*/
 
         if(userID.value == ""){
             document.getElementById("userID_container").style.backgroundColor = "#a81111";
@@ -69,11 +71,11 @@ save_btn.addEventListener('click', async () => {
             document.getElementById("birthday_container").style.backgroundColor = "#073a63";
         }
 
-        if(animalID.value == ""){
+      /*  if(animalID.value == ""){
             document.getElementById("animalID_container").style.backgroundColor = "#a81111";
         }else{
             document.getElementById("animalID_container").style.backgroundColor = "#073a63";
-        }
+        }*/
 
         if(ime.value == ""){
             document.getElementById("ime_container").style.backgroundColor = "#a81111";

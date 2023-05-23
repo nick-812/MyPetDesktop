@@ -20,21 +20,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     //prejememo id iz parametrov url
     let params = (new URL(document.location)).searchParams;
     id = params.get("id");
+    console.log(("Id psa, ki ga urejamo: " + id))
 
     //nalaganje seznama psov
     const oldpets = JSON.parse(localStorage.getItem("oldPets"));
     const newPets = JSON.parse(localStorage.getItem("newPets"));
     const pets = oldpets.concat(newPets);
-
+    console.log("Seznam petov za podatkiPsa: " + JSON.stringify(pets))
     //poiščemo psa po id-ju
     const pes = pets.find(x => x._id === id);
 
-    //vnos podatkov o psu v vnosna polja
-    petID.value = id;
+    //vnos podatkov o psu v vnosna polja7
+    //# odznaču nekaj
+    //petID.value = id;
     ime.value = pes.name;
-    animalID.value = pes.animal_id;
+    //animalID.value = pes.animal_id;
     birthday.value = pes.date_of_birth;
-    userID.value = pes.user_id;
+    userID.value = pes.weight;
 });
 
 //gumb za preusmeritev nazaj
@@ -55,11 +57,7 @@ edit_btn.addEventListener('click', async () => {
 	    ime.readOnly = false;
         ime.style.border = "solid #FFFFFF";
 
-        petID.readOnly = false;
-        petID.style.border = "solid #FFFFFF";
 
-        animalID.readOnly = false;
-        animalID.style.border = "solid #FFFFFF";
 
         birthday.readOnly = false;
         birthday.style.border = "solid #FFFFFF";
@@ -70,7 +68,7 @@ edit_btn.addEventListener('click', async () => {
     else{
         //če je gumb v funkciji shranjevanja
         //preverimo ali so vsa polja izpolnjena
-        if(petID.value != "" && userID.value != "" && birthday.value != "" && animalID.value != "" && ime.value != ""){
+        if(userID.value != "" && birthday.value != "" && ime.value != ""){
 
             //spremenimo gumb nazaj v uredi
             edit_btn.innerHTML = 'Uredi'
@@ -79,11 +77,7 @@ edit_btn.addEventListener('click', async () => {
             ime.readOnly = true;
             ime.style.border = "solid #073a63";
 
-            petID.readOnly = true;
-            petID.style.border = "solid #073a63";
 
-            animalID.readOnly = true;
-            animalID.style.border = "solid #073a63";
 
             birthday.readOnly = true;
             birthday.style.border = "solid #073a63";
@@ -98,26 +92,27 @@ edit_btn.addEventListener('click', async () => {
             const index = pets.findIndex(x => x._id === id);
 
             //popravimo vrednosti psa
-            pets[index]._id = petID.value;
+            //#Ne smemo popravljati idja, user ne sme imeti te možnosti
+           // pets[index]._id = petID.value;
             pets[index].name = ime.value;
-            pets[index].animal_id = animalID.value;
             pets[index].date_of_birth = birthday.value;
-            pets[index].user_id = userID.value;
+            pets[index].weight = userID.value;
 
             //updateamo dog na serverju
             await api.dogs.updateDog(pets[index]);
 
             //ponovno nastavimo spremenljivko id
-            id = petID.innerHTML;
+            //# ni potrebno, id se ne spremeni
+           // id = petID.innerHTML;
 
             //shranimo seznam psov nazaj v localstorage
             localStorage.setItem("oldPets", JSON.stringify(pets));
 
             //povrnemo container na prvotne barve iz rdeče
-            document.getElementById("ID_container").style.backgroundColor = "#073a63";
+            //document.getElementById("ID_container").style.backgroundColor = "#073a63";
             document.getElementById("userID_container").style.backgroundColor = "#073a63";
             document.getElementById("birthday_container").style.backgroundColor = "#073a63";
-            document.getElementById("animalID_container").style.backgroundColor = "#073a63";
+            //document.getElementById("animalID_container").style.backgroundColor = "#073a63";
             document.getElementById("ime_container").style.backgroundColor = "#073a63";
         }
 
@@ -125,12 +120,13 @@ edit_btn.addEventListener('click', async () => {
         else{
             
             //če je petID prazno ga obarvamo rdeče
-            if(petID.value == ""){
+            //#Ni vec prikaza teh elementov
+          /*  if(petID.value == ""){
                 document.getElementById("ID_container").style.backgroundColor = "#a81111";
             }
             else{
                 document.getElementById("ID_container").style.backgroundColor = "#073a63";
-            }
+            }*/
     
             if(userID.value == ""){
                 document.getElementById("userID_container").style.backgroundColor = "#a81111";
@@ -144,11 +140,11 @@ edit_btn.addEventListener('click', async () => {
                 document.getElementById("birthday_container").style.backgroundColor = "#073a63";
             }
     
-            if(animalID.value == ""){
+            /*if(animalID.value == ""){
                 document.getElementById("animalID_container").style.backgroundColor = "#a81111";
             }else{
                 document.getElementById("animalID_container").style.backgroundColor = "#073a63";
-            }
+            }*/
     
             if(ime.value == ""){
                 document.getElementById("ime_container").style.backgroundColor = "#a81111";
@@ -187,7 +183,7 @@ delete_btn.addEventListener('click', async () => {
         localStorage.setItem("oldPets", JSON.stringify(pets));
 
         //se vrnemo na prejšnjo stran
-        window.location.href="../psi/psi.html";
+        window.location.href="../psi/psi.html";s
     }
     
 })

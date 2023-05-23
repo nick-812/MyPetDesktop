@@ -23,6 +23,9 @@ login_btn.addEventListener('click', async () => {
         //pridobimo in shranimo token v localstorage
         const token = login.data['token'];
         localStorage.setItem("token", token);
+        localStorage.setItem("user_id", login.data["user_id"]);
+        console.log("Nastavljen token: " + token);
+        console.log("Nastavljen user_id: " + login.data["user_id"]);
 
         //ponastavitev indexov
         localStorage.setItem("newAppointmentIndex",0);
