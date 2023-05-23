@@ -116,6 +116,7 @@ const dodajGumbeAppointmentom = () => {
 			//ob kliku preberemo id in ga posredujemo v url-ju strani s podatki appointmenta
 			const id = appointment.id;
 			
+			
 			window.location.href=`../podatkiTermina/podatkiTermina.html?id=${id}`;
 			
 		});

@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="diagnoza.css" />
 </head>
 <body>
+	<div id="loading-overlay" display="none">
+		<div id="loading-message">Loading...</div>
+	  </div>
+
 	<ul id="menubar">
 		<li id="logo"><a href="../psi/psi.html">MyPet</a></li>
 		<li class="menuitem"><a href="../psi/psi.html">Moji Psi</a></li>
@@ -29,68 +33,68 @@
 			<div id="simptomiDiv">
 				<p id="simptomiTitle">Simptomi</p>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" id="bolecineTaca" type="checkbox">
-					<p class="simptomLabel">Bolečine v taci</p>
+					<input class="simptomCheckbox" id="Abdomen_pain" type="checkbox">
+					<p class="simptomLabel">Abdomen pain</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" id="otezenaHoja" type="checkbox">
-					<p class="simptomLabel">Otežena hoja</p>
+					<input class="simptomCheckbox" id="Bad_breath" type="checkbox">
+					<p class="simptomLabel">Bad breath</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Circling" type="checkbox">
+					<p class="simptomLabel">Circling</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Constipation" type="checkbox">
+					<p class="simptomLabel">Constipation</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Coughing" type="checkbox">
+					<p class="simptomLabel">Coughing</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Diarrhea" type="checkbox">
+					<p class="simptomLabel">Diarrhea</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Dizzines" type="checkbox">
+					<p class="simptomLabel">Dizzines</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Dragging_bottom" type="checkbox">
+					<p class="simptomLabel">Dragging bottom</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Drooling" type="checkbox">
+					<p class="simptomLabel">Drooling</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Eating_stool" type="checkbox">
+					<p class="simptomLabel">Eating stool</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Fever" type="checkbox">
+					<p class="simptomLabel">Fever</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Hair_loss" type="checkbox">
+					<p class="simptomLabel">Hair loss</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Losing_balance" type="checkbox">
+					<p class="simptomLabel">Losing balance</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Shivering" type="checkbox">
+					<p class="simptomLabel">Shivering</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Swollen abdomen" type="checkbox">
+					<p class="simptomLabel">Swollen abdomen</p>
 				</div>
 				<div class="simptomDiv">
-					<input class="simptomCheckbox" type="checkbox">
-					<p class="simptomLabel">Bolečine v nogi</p>
+					<input class="simptomCheckbox" id="Vomit" type="checkbox">
+					<p class="simptomLabel">Vomit</p>
 				</div>
 			</div>
 			<button id="search">Preveri</button>
@@ -118,9 +122,17 @@
 					</div>
 				</div>
 			</div>
+
+			<div id="rezultatDiv">
+				<p id="rezultatTitle">Opis</p>
+				<div class="outputDiv">
+					<p class="output_value" id="output_value">Class WebSwapCGLLayer is implemented in both /System/Library/ Frameworks /WebKit.framework/Ver sions/A /Frameworks/We bCore.framework/V ersio ns/A/Frameworks /libANGLE-sh ared.dylib (0x228eaafe0) and /Users/n ik/Downloads/Studi j/MAG1/ST/ST_projekt /node_modules/elect ron/dist/Electron.app/Co ntents/Frameworks/Electro n Framework.frame work/Versions/A /Libraries/libGLES v2.dylib (0x1130c1 d08). One of the two will be used. Which one is undefined.</p>
+				</div>
+			</div>
+
 		</div>
 
 	</div>
-	<script src="diagnoza.js"></script>
+	<script src="diagnoza.js"></script>-----
 </body>
 </html>

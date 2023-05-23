@@ -122,7 +122,8 @@ edit_btn.addEventListener('click', async () => {
             appointments[index].dog = ime.value;
 
             //update appointment
-            await api.appointments.updateAppointment(appointments);
+            //# dodal index
+            await api.appointments.updateAppointment(appointments[index]);
 
             //shranimo seznam psov nazaj v localstorage
             localStorage.setItem("appointments", JSON.stringify(appointments));

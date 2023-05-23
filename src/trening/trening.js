@@ -3,6 +3,8 @@ const myDogs = document.getElementById("myDogs");
 const tipTreninga = document.getElementById("trainingType");
 const search = document.getElementById("search");
 const outputValue = document.getElementById("output_value");
+const loadingOverlay = document.getElementById('loading-overlay');
+loadingOverlay.style.display = 'none';
 
 //ko je stran naložena
 document.addEventListener('DOMContentLoaded', async () => {
@@ -51,8 +53,8 @@ search.addEventListener('click', async () => {
 
 
     //pridobitev starosti
-    //var datumRojstva = new Date(dateOfBirth);
-    var datumRojstva = dateOfBirth;
+    var datumRojstva = new Date(dateOfBirth);
+   //var datumRojstva = new Date('2014-04-03');
     var month_diff = Date.now() - datumRojstva.getTime();  
     var age_dt = new Date(month_diff);   
     var year = age_dt.getUTCFullYear();  
@@ -75,20 +77,40 @@ search.addEventListener('click', async () => {
 
     //oblikovanje zahteve za strežnik
     const zahteva = {
-        starost: starost,
-        teza: 34,
+        "starost": starost,
         teza: weight,
         tip: tipTreninga.value
     };
 
+    var data;
+
+    try {
+        loadingOverlay.style.display = 'flex';
+        const response = await fetch("http://localhost:1234/trening", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(zahteva)
+        });
+        loadingOverlay.style.display = 'none';
+      
+        data = await response.json();
+        // Handle the response data here
+    } catch (error) {
+        // Handle any errors that occur during the request
+        console.error(error);
+    }
+    console.log(data)
+
     //odgovor zahteve
-    const pridobljena_vrednost = await api.train.getTraining(zahteva);
+    //const pridobljena_vrednost = await api.train.getTraining(zahteva);
 
     //odstranitev blura
     outputValue.style.color = "#000000";
     outputValue.style.textShadow = "0 0 0px #000";
 
     //nastavitev nove vrednosti
-    outputValue.innerText = pridobljena_vrednost.training;
+    outputValue.innerText = data.opis;
 
 })

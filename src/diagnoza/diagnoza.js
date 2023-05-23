@@ -8,6 +8,9 @@ const percentage1 = document.getElementById("percentage1");
 const percentage2 = document.getElementById("percentage2");
 const percentage3 = document.getElementById("percentage3");
 const outputFields = document.getElementById("outputFields");
+const outputValue = document.getElementById("output_value");
+const loadingOverlay = document.getElementById('loading-overlay');
+loadingOverlay.style.display = 'none';
 
 //ko je stran naložena
 document.addEventListener('DOMContentLoaded', async () => {
@@ -57,7 +60,7 @@ search.addEventListener('click', async () => {
 
 
     //pridobitev starosti
-    //var datumRojstva = new Date('2014-04-03');
+
     var datumRojstva = new Date(dateOfBirth);
     var month_diff = Date.now() - datumRojstva.getTime();  
     var age_dt = new Date(month_diff);   
@@ -80,21 +83,59 @@ search.addEventListener('click', async () => {
 
     //oblikovanje zahteve za strežnik
     const zahteva = {
-        starost: starost,
-        teza: 34,
-        teza: weight,
-        bolecineTaca: (document.querySelector('#bolecineTaca:checked')!=null),
-        otezenaHoja: (document.querySelector('#otezenaHoja:checked')!=null)
+        "Abdomen pain": Number((document.querySelector('#Abdomen_pain:checked')!=null)),
+        "Bad breath": Number((document.querySelector('#Bad_breath:checked')!=null)),
+        "Circling": Number((document.querySelector('#Circling:checked')!=null)),
+        "Constipation": Number((document.querySelector('#Constipation:checked')!=null)),
+        "Coughing": Number((document.querySelector('#Coughing:checked')!=null)),
+        "Diarrhea": Number((document.querySelector('#Diarrhea:checked')!=null)),
+        "Dizzines": Number((document.querySelector('#Dizzines:checked')!=null)),
+        "Dragging bottom": Number((document.querySelector('#Dragging_bottom:checked')!=null)),
+        "Drooling": Number((document.querySelector('#Drooling:checked')!=null)),
+        "Eating stool": Number((document.querySelector('#Eating_stool:checked')!=null)),
+        "Fever": Number((document.querySelector('#Fever:checked')!=null)),
+        "Hair loss": Number((document.querySelector('#Hair_loss:checked')!=null)),
+        "Losing balance": Number((document.querySelector('#Losing_balance:checked')!=null)),
+        "Shivering": Number((document.querySelector('#Shivering:checked')!=null)),
+        "Swollen abdomen": Number((document.querySelector('#Swollen_abdomen:checked')!=null)),
+        "Vomit": Number((document.querySelector('#Vomit:checked')!=null)),
     }
 
     //odgovor zahteve
-    const pridobljena_vrednost = await api.diagnose.getDiagnose(zahteva);
+    //const pridobljena_vrednost = await api.diagnose.getDiagnose(zahteva);
+    var data;
+
+    try {
+        loadingOverlay.style.display = 'flex';
+        const response = await fetch("http://localhost:1234/diagnoza", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body:JSON.stringify(zahteva)
+        });
+        loadingOverlay.style.display = 'none';
+      
+        data = await response.json();
+        // Handle the response data here
+      } catch (error) {
+        // Handle any errors that occur during the request
+        console.error(error);
+      }
 
     //prikaz odseka z rezultati
     outputFields.style.display = "block";
 
+    //odstranitev blura
+    outputValue.style.color = "#000000";
+    outputValue.style.textShadow = "0 0 0px #000";
+
+    //nastavitev nove vrednosti
+    console.log(Object.values(data)[0])
+    outputValue.innerText = data.opis;
+
     //zelena barva labela nad 75% verjetnosti, nato rumena in rdeča
-    if(pridobljena_vrednost.verjetnost1>75){
+    /*if(pridobljena_vrednost.verjetnost1>75){
         percentage1.style.color = "#27754a"
     }
     else if(pridobljena_vrednost.verjetnost1>25){
@@ -123,14 +164,15 @@ search.addEventListener('click', async () => {
     else{
         percentage3.style.color = "#941818"
     }
+    */
 
     //nastavitev vrednosti % v polje z rezultatom
-    percentage1.innerHTML = `${pridobljena_vrednost.verjetnost1}%`;
-    percentage2.innerHTML = `${pridobljena_vrednost.verjetnost2}%`;
-    percentage3.innerHTML = `${pridobljena_vrednost.verjetnost3}%`;
+    percentage1.innerHTML = `${Object.values(data)[0]}%`;
+    percentage2.innerHTML = `${Object.values(data)[1]}%`;
+    percentage3.innerHTML = `${Object.values(data)[2]}%`;
 
     //vpis bolezni med rezultate
-    bolezen1.innerHTML = pridobljena_vrednost.opcija1;
-    bolezen2.innerHTML = pridobljena_vrednost.opcija2;
-    bolezen3.innerHTML = pridobljena_vrednost.opcija3;
+    bolezen1.innerHTML = Object.keys(data)[0];
+    bolezen2.innerHTML = Object.keys(data)[1];
+    bolezen3.innerHTML = Object.keys(data)[2];
 })

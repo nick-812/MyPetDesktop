@@ -334,8 +334,8 @@ contextBridge.exposeInMainWorld('api', {
 			if(navigator.onLine){
 
 				db.appointments.clear();
-
-
+				const token = localStorage.getItem("token");
+				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
 
 				//klic na server za appointmente
@@ -399,8 +399,8 @@ contextBridge.exposeInMainWorld('api', {
 				//#ni treba idja
 
 
-
-
+			    
+				
 
 				//const id = String(Math.floor(Math.random()*100000));
 
@@ -442,9 +442,17 @@ contextBridge.exposeInMainWorld('api', {
 				const token = localStorage.getItem("token");
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
+                data = {
+				    
+					"date": appointment.date,
+					"dog": appointment.dog,
+					"vet": appointment.vet,
+					"data": appointment.data
+				}
 
+				console.log(JSON.stringify(data));
 
-
+				axios.put(`http://localhost:3004/user/updateAppointment?id=${appointment.id}`, data)
 
 				// server update appointment
 
@@ -463,11 +471,11 @@ contextBridge.exposeInMainWorld('api', {
 				//nastavitev tokena kot default
 				const token = localStorage.getItem("token");
 				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
+				
 
 
-
-
-
+				axios.delete(`http://localhost:3004/user/deleteAppointment?id=${id}`);
+					
 				// server delete appointment po id-ju
 
 
