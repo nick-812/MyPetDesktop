@@ -86,10 +86,11 @@ search.addEventListener('click', async () => {
 
     try {
         loadingOverlay.style.display = 'flex';
-        const response = await fetch("http://localhost:1234/trening", {
+        const response = await fetch("http://localhost:3004/ai/trening", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': `bearer ${localStorage.getItem('token')}`
           },
           body: JSON.stringify(zahteva)
         });

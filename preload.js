@@ -1,29 +1,9 @@
 const axios = require('axios');
 const { contextBridge, ipcRenderer, remote } = require('electron');
 const dexie = require('dexie');
-const { uuid } = require('uuidv4');
 const ObjectId = require('mongo-objectid');
 
-function isInternetReachable() {
-	return axios.get('https://google.com')
-	  .then(() => true)
-	  .catch(() => false);
-  }
-  var isOnline = isInternetReachable();
-//dodaj nove atribute
-setInterval(async () => {
-    var online = await isInternetReachable();
-    if (online !== isOnline) {
-      isOnline = online;
-      if (isOnline) {
-		ipcRenderer.send('notify', "Device is online.");
-        console.log('Device is online');
-      } else {
-		ipcRenderer.send('notify', "Device is offline.");
-        console.log('Device is offline');
-      }
-    }
-  }, 5000); 
+
 
 
 //database psov v dexiju
@@ -199,7 +179,7 @@ contextBridge.exposeInMainWorld('api', {
 				const userId = localStorage.getItem("user_id");
 				console.log("Pridobivanje psov za uporabnika: " + userId)
 				//fetchanje novih petov iz strežnika
-				const response = await axios.get(`http://localhost:3004/user/getPets?user_id=${userId}`, {
+				const response = await axios.get(`http://localhost:3004/pet/getPets?user_id=${userId}`, {
 					params: {
 						user_id: userId
 					}, 
@@ -244,7 +224,7 @@ contextBridge.exposeInMainWorld('api', {
 
 
 
-				axios.post()
+				//axios.post()
 				const data = {
 					"id" : dog._id,
 					"name": dog.name,
@@ -254,7 +234,7 @@ contextBridge.exposeInMainWorld('api', {
 				}
 				//#push dog na server in return id (ni treba več, je ze nastavljen)
 
-				await axios.post('http://localhost:3004/user/createPet', data);
+				await axios.post('http://localhost:3004/pet/createPet', data);
 
 				//# NASTAVI NOV ID !!!!!!!! (ni treba več, je ze nastavljen)
 				//const id = String(Math.floor(Math.random()*100000));
@@ -305,7 +285,7 @@ contextBridge.exposeInMainWorld('api', {
 					"weight": dog.weight
 				}
 
-				axios.put(`http://localhost:3004/user/updateAnimalAll?id=${dog._id}`, data)
+				axios.put(`http://localhost:3004/pet/updateAnimalAll?id=${dog._id}`, data)
 
 				// server update dog
 
@@ -330,7 +310,7 @@ contextBridge.exposeInMainWorld('api', {
 
 				// server delete dog po id-ju
 
-				const response = await axios.delete(`http://localhost:3004/user/deletePet?id=${id}`, {
+				const response = await axios.delete(`http://localhost:3004/pet/deletePet?id=${id}`, {
 
 				});
 
@@ -369,7 +349,7 @@ contextBridge.exposeInMainWorld('api', {
 				}
 				*/
 					
-				const response = await axios.get(`http://localhost:3004/user/getAppointment?user_id=${localStorage.getItem("user_id")}`);
+				const response = await axios.get(`http://localhost:3004/appointment/getAppointment?user_id=${localStorage.getItem("user_id")}`);
 
 				//# tu dodal da da v dexi bazo
 					//za vsak pridobljen pet ustvarimo objekt in ga shranimo v dexi
@@ -408,7 +388,7 @@ contextBridge.exposeInMainWorld('api', {
 					"data": appointment.data
 				}
 
-                axios.post("http://localhost:3004/user/createAppointment", data)
+                axios.post("http://localhost:3004/appointment/createAppointment", data)
 
 
 				//push appointment na server in return id
@@ -468,7 +448,7 @@ contextBridge.exposeInMainWorld('api', {
 
 				console.log(JSON.stringify(data));
 
-				axios.put(`http://localhost:3004/user/updateAppointment?id=${appointment.id}`, data)
+				axios.put(`http://localhost:3004/appointment/updateAppointment?id=${appointment.id}`, data)
 
 				// server update appointment
 
@@ -490,7 +470,7 @@ contextBridge.exposeInMainWorld('api', {
 				
 
 
-				axios.delete(`http://localhost:3004/user/deleteAppointment?id=${id}`);
+				axios.delete(`http://localhost:3004/appointment/deleteAppointment?id=${id}`);
 					
 				// server delete appointment po id-ju
 

@@ -107,12 +107,14 @@ search.addEventListener('click', async () => {
 
     try {
         loadingOverlay.style.display = 'flex';
-        const response = await fetch("http://localhost:1234/diagnoza", {
+        const response = await fetch("http://localhost:3004/ai/diagnoza", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': `bearer ${localStorage.getItem('token')}`
+
           },
-          body:JSON.stringify(zahteva)
+          body: JSON.stringify(zahteva)
         });
         loadingOverlay.style.display = 'none';
       

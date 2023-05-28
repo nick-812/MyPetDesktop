@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, Notification } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios')
 
 function createWindow () {
 	const win = new BrowserWindow({
@@ -25,6 +26,27 @@ ipcMain.on('notify', (_, message) => {
 	console.log("Notification triggered.")
 	new Notification({title: 'Notifiation', body: message}).show();
 })
+
+function isInternetReachable() {	
+	return axios.get('https://google.com')
+	  .then(() => true)
+	  .catch(() => false);
+  }
+  var isOnline = isInternetReachable();
+//dodaj nove atribute
+setInterval(async () => {
+    var online = await isInternetReachable();
+    if (online !== isOnline) {
+      isOnline = online;
+      if (isOnline) {
+		ipcRenderer.send('notify', "Device is online.");
+        console.log('Device is online');
+      } else {
+		ipcRenderer.send('notify', "Device is offline.");
+        console.log('Device is offline');
+      }
+    }
+  }, 5000); 
 
 
 //zagon aplikacije
