@@ -31,12 +31,24 @@ window.addEventListener ('online', async ()=>{
 
 		//push dog na server in return id
 
-
+		const token = localStorage.getItem("token");
+		axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
 
 		// NASTAVI NOV ID !!!!!!!!
-		const id = String(Math.floor(Math.random()*100000));
+		//const id = String(Math.floor(Math.random()*100000));
 
-		dog._id = id;
+		const data = {
+			"id" : dog._id,
+			"name": dog.name,
+			"date": dog.date_of_birth,
+			"user_id": dog.user_id,
+			"weight": dog.weight
+		}
+		//#push dog na server in return id (ni treba več, je ze nastavljen)
+
+		await axios.post('http://localhost:3004/pet/createPet', data);
+
+		//dog._id = id;
 		db.pets.add(dog);
 
 		//pridobimo array psov iz dexija
@@ -69,9 +81,23 @@ window.addEventListener ('online', async ()=>{
 
 
 
-		const id = String(Math.floor(Math.random()*100000));
+		//const id = String(Math.floor(Math.random()*100000));
 
-		appointment.id = id;
+		//appointment.id = id;
+
+		const token = localStorage.getItem("token");
+				axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
+
+				const data = {
+					"date": appointment.date,
+					"dog": appointment.dog,
+					"vet": appointment.vet,
+					"data": appointment.data
+				}
+
+                axios.post("http://localhost:3004/appointment/createAppointment", data)
+
+
 		db.appointments.add(appointment);
 
 		//pridobimo array appointmentov iz dexija
