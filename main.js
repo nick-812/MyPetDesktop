@@ -22,6 +22,7 @@ function createWindow () {
 
 //funkcija za notification
 ipcMain.on('notify', (_, message) => {
+	console.log("Notification triggered.")
 	new Notification({title: 'Notifiation', body: message}).show();
 })
 

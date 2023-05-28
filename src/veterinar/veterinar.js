@@ -8,6 +8,7 @@ let dogs = document.querySelectorAll(".dog");
 
 //ko se stran zažene kličemo funkcijo naloži pse
 document.addEventListener('DOMContentLoaded', async () => {
+	await api.appointments.getAllAppointments();
 	naloziAppointmente();
 })
 

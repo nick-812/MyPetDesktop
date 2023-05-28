@@ -21,7 +21,7 @@ add_btn.addEventListener('click', async () => {
 refresh_btn.addEventListener('click', async () => {
 
 	//kličemo preload.js in posledično server za nove pse
-	//await api.dogs.getAllDogs();
+	await api.dogs.getAllDogs();
 	
 	naloziPse();
 })
