@@ -10,7 +10,8 @@ login_btn.addEventListener('click', async () => {
 
     //ustvarimo podatke zahteve
     const data = {
-        username: email.value,
+        username: ime.value,
+        email: email.value,
         password: password.value
     };
     
