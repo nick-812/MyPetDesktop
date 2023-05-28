@@ -112,7 +112,7 @@ search.addEventListener('click', async () => {
     outputValue.style.textShadow = "0 0 0px #000";
 
     //nastavitev nove vrednosti
-    if(localStorage.getItem("online")) {
+    if(await api.onlineApi.isReachable()==true) {
     outputValue.innerText = data.opis;
     }
     else {

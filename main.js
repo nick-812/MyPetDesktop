@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios')
 
+
 function createWindow () {
 	const win = new BrowserWindow({
 
@@ -24,7 +25,7 @@ function createWindow () {
 //funkcija za notification
 ipcMain.on('notify', (_, message) => {
 	console.log("Notification triggered.")
-	new Notification({title: 'Notifiation', body: message}).show();
+	new Notification({title: 'Notification', body: message}).show();
 })
 
 function isInternetReachable() {	
@@ -39,13 +40,13 @@ setInterval(async () => {
     if (online !== isOnline) {
       isOnline = online;
       if (isOnline) {
-		localStorage.setItem("online", true)
+		
 		new Notification({title: 'Notification', body: 'Device is online'}).show();
         console.log('Device is online');
       } else {
 		new Notification({title: 'Notification', body: 'Device is offline'}).show();
         console.log('Device is offline');
-		localStorage.setItem("online", false)
+	
       }
     }
   }, 500); 

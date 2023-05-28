@@ -5,10 +5,23 @@ const err_message = document.getElementById('error');
 const email =  document.getElementById('email');
 const password =  document.getElementById('password');
 
+function showToast(message) {
+    let toast = document.getElementById("toast");
+    toast.className = "show";
+    toast.innerText = message;
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+}
 //gumb za registracijo
 login_btn.addEventListener('click', async () => {
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!emailPattern.test(email.value)) {
+        showToast('E-mail is invalid.');
+        return;
+    }
+   
 
     //ustvarimo podatke zahteve
+    
     const data = {
         username: ime.value,
         email: email.value,

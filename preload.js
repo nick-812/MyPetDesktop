@@ -103,6 +103,15 @@ contextBridge.exposeInMainWorld('api', {
 		}
 	},
 
+	onlineApi:  {
+		async isReachable() {
+			console.log("Reachable called")	
+		return axios.get('https://google.com')
+		  .then(() => true)
+		  .catch(() => false);
+	  }
+	},
+
 	//pošiljanje login data na strežnik
 	login: {
 

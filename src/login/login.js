@@ -36,7 +36,7 @@ login_btn.addEventListener('click', async () => {
     }
     else{
         //če koda ni 200 izpišemo opozorilo uporabniku
-        err_message.innerHTML = "Napačen E-Mail ali Geslo";
+        err_message.innerHTML = "Napačno uporabniško ime ali Geslo";
     }
 
 })
