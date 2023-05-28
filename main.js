@@ -12,6 +12,7 @@ function createWindow () {
 		height: 900,
 		minWidth: 1100,
 		title: "MyPet",
+		icon: path.join(__dirname, 'mypet.png'),
 		webPreferences: {
             nodeIntegration: true,
 			preload: path.join(__dirname, 'preload.js')

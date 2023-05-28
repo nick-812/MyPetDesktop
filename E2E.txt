@@ -1,4 +1,4 @@
-Tests case 1:
+Tests case:
 
 1. Register
 2. Login
