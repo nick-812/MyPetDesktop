@@ -18,6 +18,14 @@ login_btn.addEventListener('click', async () => {
         showToast('E-mail is invalid.');
         return;
     }
+    else if(ime.value.length<6) {
+        showToast('Name should be at least 6 characters.');
+        return;
+    }
+    else if(password.value.length<8) {
+        showToast('Password should be at least 8 characters.');
+        return;
+    }
    
 
     //ustvarimo podatke zahteve

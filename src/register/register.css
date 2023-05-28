@@ -22,7 +22,7 @@ body {
 #toast {
     visibility: hidden;
     max-width: 50%;
-    margin: auto;
+    margin: 0 auto;
     background-color: #333;
     color: #fff;
     text-align: center;
