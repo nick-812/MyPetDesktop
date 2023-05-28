@@ -16,7 +16,7 @@ db.version(4).stores({
 });
 
 window.addEventListener ('online', async ()=>{
-
+	console.log("ONLINE")
 	//nastavitev tokena kot default
 	const token = localStorage.getItem("token");
 	axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
