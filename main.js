@@ -39,10 +39,10 @@ setInterval(async () => {
     if (online !== isOnline) {
       isOnline = online;
       if (isOnline) {
-		ipcRenderer.send('notify', "Device is online.");
+		new Notification({title: 'Notification', body: 'Device is online'}).show();
         console.log('Device is online');
       } else {
-		ipcRenderer.send('notify', "Device is offline.");
+		new Notification({title: 'Notification', body: 'Device is offline'}).show();
         console.log('Device is offline');
       }
     }
