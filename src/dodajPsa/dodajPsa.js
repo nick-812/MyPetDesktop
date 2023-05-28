@@ -23,6 +23,22 @@ back_btn.addEventListener('click', async () => {
 	window.location.href="../psi/psi.html";
 })
 
+window.onload = function() {
+    document.getElementById('userID_value').oninput = function () {
+        if (this.value.length > 3) {
+            this.value = this.value.slice(0,3); 
+        }
+        this.value = this.value.replace(/[^0-9]/g,''); // Only allow numerical input
+    };
+
+    document.getElementById('ime_value').oninput = function () {
+        if (this.value.length > 128) {
+            this.value = this.value.slice(0,128); 
+        }
+        this.value = this.value.replace(/[^a-žA-Ž ]/g,''); // Only allow letters
+    };
+};
+
 //gumb za shranjevanje
 save_btn.addEventListener('click', async () => {
 

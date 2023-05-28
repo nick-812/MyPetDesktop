@@ -40,6 +40,22 @@ back_btn.addEventListener('click', async () => {
 	window.location.href="../veterinar/veterinar.html";
 })
 
+window.onload = function() {
+    document.getElementById('vet_value').oninput = function () {
+        if (this.value.length > 128) {
+            this.value = this.value.slice(0,128); 
+        }
+        this.value = this.value.replace(/[^a-žA-Ž ]/g,''); // Only allow numerical input
+    };
+
+    document.getElementById('opis_value').oninput = function () {
+        if (this.value.length > 1024) {
+            this.value = this.value.slice(0,1024); 
+        }
+         
+    };
+};
+
 //gumb za urejanje
 save_btn.addEventListener('click', async () => {
 
