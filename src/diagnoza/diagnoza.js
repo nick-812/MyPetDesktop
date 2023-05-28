@@ -133,8 +133,14 @@ search.addEventListener('click', async () => {
     outputValue.style.textShadow = "0 0 0px #000";
 
     //nastavitev nove vrednosti
+    if(localStorage.getItem("online")) {
     console.log(Object.values(data)[0])
     outputValue.innerText = data.opis;
+    }
+    else {
+        console.log("Ni povezave")
+    outputValue.innerText = "Ni povezave.";
+    }
 
     //zelena barva labela nad 75% verjetnosti, nato rumena in rdeča
     /*if(pridobljena_vrednost.verjetnost1>75){

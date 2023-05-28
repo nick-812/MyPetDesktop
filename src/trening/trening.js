@@ -112,6 +112,11 @@ search.addEventListener('click', async () => {
     outputValue.style.textShadow = "0 0 0px #000";
 
     //nastavitev nove vrednosti
+    if(localStorage.getItem("online")) {
     outputValue.innerText = data.opis;
+    }
+    else {
+        outputValue.innerText = "Ni povezave."
+    }
 
 })

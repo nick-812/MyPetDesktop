@@ -1,0 +1,41 @@
+Tests case 1:
+
+1. Register
+2. Login
+
+3. dodaj 2 psa* 
+4. editaj 2. psa* 
+
+5. Odstrani 1. psa
+
+6. pojdi na veterinar
+7. dodaj prihodnji termin*
+8. dodaj pretekli termin*
+9. dodaj prihodnji termin, da bo pretekli*
+10. editaj prihodnji termin da bo pretekli*
+11. Izbrisi editan termin
+12. Dodaj 1 psa
+
+13. pojdi na trening
+14. izvedi 3 poljubne poizvedbe za 2 različna psa
+15. pojdi na diagnozo
+16. izvedi 3 poljubne poizvedbe za 2 različna psa
+
+17. odjavi se
+18. ponovno se prijavi
+
+19. Izguba connectiona
+20. editaj poljubnega psa
+21. editaj poljubni termin
+
+22. dodaj poljubnega psa
+23. povezi se s spletom
+
+24. izgubi connection
+25. odjavi se
+26. poskusi se prijaviti
+
+
+*(poskusi char limit in regex)
+
+

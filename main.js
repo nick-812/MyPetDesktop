@@ -39,14 +39,16 @@ setInterval(async () => {
     if (online !== isOnline) {
       isOnline = online;
       if (isOnline) {
+		localStorage.setItem("online", true)
 		new Notification({title: 'Notification', body: 'Device is online'}).show();
         console.log('Device is online');
       } else {
 		new Notification({title: 'Notification', body: 'Device is offline'}).show();
         console.log('Device is offline');
+		localStorage.setItem("online", false)
       }
     }
-  }, 5000); 
+  }, 500); 
 
 
 //zagon aplikacije
